@@ -4,7 +4,7 @@ canvas.width = 800;
 canvas.height = 500;
 
 // We will use this array to keep track of what keys the user pressing on the keyboard using key and key down event listeners 
-const key = [];
+const keys = [];
 
 const player = {
     x: 0,               // player's horizontal position on the x axis
@@ -37,3 +37,13 @@ function animate() {
 }
 
 animate();
+
+// Keyup/ KeyDown Event listeners
+
+window.addEventListener("keydown", function(e) {   // e stands for built in event object passed as an attribute
+    keys[e.key] = true;     // whenever a key is pressed, we add that key into our keys array
+});
+
+window.addEventListener("keyup", function(e) {   // e stands for built in event object passed as an attribute
+    delete keys[e.key];     // when we release a button and keyup occurs, we remove that button from the keys array
+});
