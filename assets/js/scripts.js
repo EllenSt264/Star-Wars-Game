@@ -61,7 +61,7 @@ function movePlayer() {
         player.x -= player.speed;
         player.frameY = 1;
     }
-    if (keys[40] && player.y < player.y < canvas.height - player.height) {     // 40 is the keycode for down arrow key
+    if (keys[40] && player.y < canvas.height - player.height) {     // 40 is the keycode for down arrow key
         player.y += player.speed;
         player.frameY = 0;
     }
