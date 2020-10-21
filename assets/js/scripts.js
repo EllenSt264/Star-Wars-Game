@@ -29,17 +29,6 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);   // clear entire canvas between every animation frame
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-    drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height);
-    movePlayer();   // need to call this function to see the character move (defined below)
-    handlePlayerFrame();
-    requestAnimationFrame(animate);
-}
-
-animate();
-
 // Keyup/ KeyDown Event listeners
 
 window.addEventListener("keydown", function(e) {   // e stands for built in event object passed as an attribute
@@ -84,3 +73,29 @@ function handlePlayerFrame() {
         player.frameX = 0;
     }      
 }
+
+let fps, fpsInterval, startTime, now, then, elapsed;
+
+function startAnimation(fps) {
+    fpsInterval = 1000/fps;
+    then = Date.now();
+    startTime = then;
+    animate();                                                                                                                                                                  
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    now = Date.now();
+    elapsed = now - then;
+    if (elapsed >fpsInterval) {
+        then = now - (elapsed % fpsInterval);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);   // clear entire canvas between every animation frame
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+        drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, 
+        player.width, player.height, player.x, player.y, player.width, player.height);
+        movePlayer();   // need to call this function to see the character move (defined below)
+        handlePlayerFrame();
+    }
+}
+
+startAnimation(30);
