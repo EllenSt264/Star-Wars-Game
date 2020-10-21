@@ -7,8 +7,8 @@ canvas.height = 500;
 const keys = [];
 
 const player = {
-    x: 0,               // player's horizontal position on the x axis
-    y: 0,               // player's vertical position on the y axis
+    x: 200,               // player's horizontal position on the x axis
+    y: 300,               // player's vertical position on the y axis
     width: 40,           // width will have to be calculated based on what spritesheet we use
     height: 72,          // height will have to be calculated based on what spritesheet we use
     frameX: 0,          // the horizontal coordinate of frame we cut out from our sprite sheet
@@ -32,7 +32,7 @@ function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);   // clear entire canvas between every animation frame
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-    drawSprite(playerSprite, 0, 0, player.width, player.height, 200, 200, player.width, player.height);
+    drawSprite(playerSprite, 0, 0, player.width, player.height, player.x, player.y, player.width, player.height);
     requestAnimationFrame(animate);
 }
 
