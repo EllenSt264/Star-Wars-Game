@@ -48,18 +48,22 @@ function movePlayer() {
     if (keys[38] && player.y > 100) {      // 38 is the keycode for the up arrow key // player.y>100 prevents the character from leaving the page
         player.y -= player.speed;   // moves character in the negative direction along the vertical y-axis
         player.frameY = 3;      // will change the animation row of the sprite to display the character walking up
+        player.moving = true;
     }
     if (keys[37] && player.x > 0) {     // 37 is the keycode for left arrow key
         player.x -= player.speed;
         player.frameY = 1;
+        player.moving = true;
     }
     if (keys[40] && player.y < canvas.height - player.height) {     // 40 is the keycode for down arrow key
         player.y += player.speed;
         player.frameY = 0;
+        player.moving = true;
     }
     if (keys[39] && player.x < canvas.width - player.width) {     // 39 is the keycode for right arrow key
         player.x += player.speed;
         player.frameY = 2;
+        player.moving = true;
     }   
 }
 
