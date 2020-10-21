@@ -33,6 +33,7 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);   // clear entire canvas between every animation frame
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     drawSprite(playerSprite, 0, 0, player.width, player.height, player.x, player.y, player.width, player.height);
+    movePlayer();   // need to call this function to see the character move (defined below)
     requestAnimationFrame(animate);
 }
 
@@ -41,9 +42,18 @@ animate();
 // Keyup/ KeyDown Event listeners
 
 window.addEventListener("keydown", function(e) {   // e stands for built in event object passed as an attribute
-    keys[e.key] = true;     // whenever a key is pressed, we add that key into our keys array
+    keys[e.keyCode] = true;     // whenever a key is pressed, we add that key into our keys array
 });
 
 window.addEventListener("keyup", function(e) {   // e stands for built in event object passed as an attribute
-    delete keys[e.key];     // when we release a button and keyup occurs, we remove that button from the keys array
+    delete keys[e.keyCode];     // when we release a button and keyup occurs, we remove that button from the keys array
 });
+
+
+// Move player
+
+function movePlayer() {
+    if (keys[38] && player.y > 100) {      // 38 is the keycode for the up arrow key // player.y>100 prevents the character from leaving the page
+        player.y -= player.speed;   // moves character in the negative direction along the vertical y-axis
+    }
+}
