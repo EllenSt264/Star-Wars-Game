@@ -13,7 +13,7 @@ const player = {
     height: 72,          // height will have to be calculated based on what spritesheet we use
     frameX: 0,          // the horizontal coordinate of frame we cut out from our sprite sheet
     frameY: 0,          // the vertical coordinate of frame we cut out from our sprite sheet
-    speed: 9,           // how many pixels we move per frame
+    speed: 4,           // how many pixels we move per frame
     moving: false       // we will use this value to switch between standing and walking animation
 }
 
@@ -34,6 +34,7 @@ function animate() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     drawSprite(playerSprite, player.width * player.frameX, player.height * player.frameY, player.width, player.height, player.x, player.y, player.width, player.height);
     movePlayer();   // need to call this function to see the character move (defined below)
+    handlePlayerFrame();
     requestAnimationFrame(animate);
 }
 
@@ -43,10 +44,12 @@ animate();
 
 window.addEventListener("keydown", function(e) {   // e stands for built in event object passed as an attribute
     keys[e.keyCode] = true;     // whenever a key is pressed, we add that key into our keys array
+    player.moving = true;
 });
 
 window.addEventListener("keyup", function(e) {   // e stands for built in event object passed as an attribute
     delete keys[e.keyCode];     // when we release a button and keyup occurs, we remove that button from the keys array
+    player.moving = false;
 });
 
 
@@ -68,7 +71,16 @@ function movePlayer() {
     if (keys[39] && player.x < canvas.width - player.width) {     // 39 is the keycode for right arrow key
         player.x += player.speed;
         player.frameY = 2;
+    }   
+}
+
+// For the walking animation
+
+function handlePlayerFrame() {
+    if (player.frameX < 3 && player.moving) {    // because our spritesheet has four collumns, starting from 0
+        player.frameX ++;
     }
-    
-    
+    else {
+        player.frameX = 0;
+    }      
 }
